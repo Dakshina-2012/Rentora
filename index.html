@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentora — Premium Car Rental & Mobility Platform</title>
+    <meta name="description" content="Rentora provides verified premium, luxury, SUV, and economy car rentals with transparent pricing, instant online booking, and 24/7 support.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom Modern Design System -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         STICKY GLOBAL NAVIGATION
+         ========================================================================== -->
+    <nav class="navbar" id="main-navbar">
+        <div class="container nav-container">
+            <a href="#home" class="brand-logo" style="text-decoration:none;">
+                <img id="brand-logo-img" src="rentora-logo.jpg" alt="Rentora — Drive Your Dreams" class="brand-logo-img"
+                     onerror="this.onerror=null; this.src='C:/Users/sai/.gemini/antigravity/brain/f9c26ff1-5a1f-4b36-81c9-052bf39e70ea/.user_uploaded/media_1789139689003.jpg';"
+                     style="height: 52px; width: auto; object-fit: contain; display: block;">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#cars" class="nav-link">Cars</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#my-bookings" class="nav-link">My Bookings</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li id="nav-admin-link" style="display: none;">
+                    <a href="#admin" class="nav-link" style="color: var(--accent-cyan); font-weight: 700;">
+                        <i class="fa-solid fa-gauge-high"></i> Admin
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="btn-icon" id="theme-toggle-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+
+                <!-- Auth Buttons -->
+                <button class="btn btn-secondary btn-sm" id="nav-auth-btn" onclick="app.openAuthModal()">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Login / Sign Up
+                </button>
+
+                <!-- User Profile Badge (When logged in) -->
+                <div id="nav-user-menu" style="display: none; align-items: center; gap: 0.6rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-card); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); border: 1px solid var(--border-color); cursor: pointer;" onclick="app.openSettingsModal()" title="View Account & Security Settings">
+                        <i class="fa-solid fa-circle-user" style="color: var(--accent-blue); font-size: 1.2rem;"></i>
+                        <span id="nav-user-name" style="font-size: 0.85rem; font-weight: 600;">User</span>
+                    </div>
+                    <button class="btn-icon" onclick="app.openSettingsModal()" title="Password & Profile Settings">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                    <button class="btn-icon" onclick="app.logout()" title="Logout">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </div>
+
+                <!-- Primary Booking CTA -->
+                <a href="#cars" class="btn btn-primary btn-sm btn-book-cta">
+                    <i class="fa-solid fa-key"></i> Book a Car
+                </a>
+
+                <!-- Mobile Hamburger Button -->
+                <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Open Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-drawer" id="mobile-drawer">
+            <a href="#home" class="nav-link" onclick="app.navigate('home')">Home</a>
+            <a href="#cars" class="nav-link" onclick="app.navigate('cars')">Explore Cars</a>
+            <a href="#my-bookings" class="nav-link" onclick="app.navigate('my-bookings')">My Bookings</a>
+            <a href="#about" class="nav-link" onclick="app.navigate('about')">About Rentora</a>
+            <a href="#contact" class="nav-link" onclick="app.navigate('contact')">Contact Us</a>
+            <a href="#admin" class="nav-link" onclick="app.navigate('admin')">Admin Portal</a>
+            <div style="margin-top: 1rem; display: flex; gap: 0.8rem;">
+                <button class="btn btn-secondary btn-sm" style="flex: 1;" onclick="app.openAuthModal()">Login / Sign Up</button>
+                <a href="#cars" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==========================================================================
+         VIEW 1: HOMEPAGE
+         ========================================================================== -->
+    <main id="home-view" class="app-view">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-pill">
+                        <i class="fa-solid fa-shield-halved"></i> 100% Sanitized & Verified Fleet
+                    </div>
+                    <h1 class="hero-title">Your Journey.<br><span class="gradient-text">Your Car. Your Way.</span></h1>
+                    <p class="hero-subtitle">
+                        Rent reliable cars for every journey with Rentora — simple booking, flexible options, and a seamless rental experience without paperwork bottlenecks.
+                    </p>
+                    <div class="hero-ctas">
+                        <a href="#cars" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-car"></i> Explore Cars
+                        </a>
+                        <a href="#cars" class="btn btn-secondary btn-lg">
+                            <i class="fa-solid fa-calendar-check"></i> Book a Car
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80" alt="Rentora Luxury Fleet" class="hero-car-img">
+                    <div class="hero-float-badge">
+                        <div class="badge-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.95rem;">Instant Terminal Pickup</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Zero surge pricing • 24/7 Roadside cover</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Search / Booking Widget -->
+        <section class="container">
+            <div class="quick-search-card">
+                <form id="hero-quick-search-form" class="search-form-grid">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-location-dot"></i> Pick-up Location</label>
+                        <select class="form-control" id="search-location" required>
+                            <!-- Dynamically populated from database.js -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-regular fa-calendar-days"></i> Pick-up Date</label>
+                        <input type="date" class="form-control" id="search-pickup-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-regular fa-calendar-check"></i> Return Date</label>
+                        <input type="date" class="form-control" id="search-return-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-shapes"></i> Vehicle Type</label>
+                        <select class="form-control" id="search-category">
+                            <option value="All">All Categories</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="Luxury">Luxury</option>
+                            <option value="Electric">Electric</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Economy">Economy</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary search-btn">
+                            <i class="fa-solid fa-magnifying-glass"></i> Search Cars
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Company Introduction & Stats -->
+        <section class="intro-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">About Rentora</span>
+                    <h2 class="section-title">Rentora makes car rental simple, transparent, and convenient.</h2>
+                    <p class="section-desc">
+                        Say goodbye to hidden fees, exhausting paperwork, and unpredictable vehicle conditions. We curate modern, verified cars with straightforward pricing and concierge airport delivery.
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number gradient-text">500+</div>
+                        <div class="stat-label">Verified Vehicles</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number gradient-text">10K+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number gradient-text">25+</div>
+                        <div class="stat-label">Major Hub Locations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number gradient-text">24/7</div>
+                        <div class="stat-label">Roadside Concierge</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Cars Section -->
+        <section class="container" style="padding: 4rem 1.5rem 6rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span class="section-tag">Featured Fleet</span>
+                    <h2 class="section-title" style="margin-bottom: 0.5rem;">Handpicked For Your Next Journey</h2>
+                    <p class="section-desc">Explore top-rated vehicles maintained to pristine automotive standards.</p>
+                </div>
+                <a href="#cars" class="btn btn-secondary">View All Vehicles <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="cars-grid" id="featured-cars-container">
+                <!-- Injected by app.js -->
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section style="background: rgba(255, 255, 255, 0.02); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 6rem 0;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Simple Process</span>
+                    <h2 class="section-title">How Rentora Works</h2>
+                    <p class="section-desc">Get behind the steering wheel in four effortless steps.</p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <span class="step-num-badge">01</span>
+                        <div class="step-card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Choose Your Car</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Browse our diverse fleet of economy, SUV, electric, and luxury vehicles.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num-badge">02</span>
+                        <div class="step-card-icon"><i class="fa-regular fa-calendar-check"></i></div>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Select Your Dates</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Pick flexible pick-up and drop-off slots with transparent real-time pricing.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num-badge">03</span>
+                        <div class="step-card-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Confirm Booking</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Fast digital verification with instant confirmation voucher and receipt.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num-badge">04</span>
+                        <div class="step-card-icon"><i class="fa-solid fa-road"></i></div>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.6rem;">Hit the Road</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Pick up your car at your selected hub or airport terminal and enjoy the journey.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Rentora Section -->
+        <section class="container" style="padding: 6rem 1.5rem;">
+            <div class="section-header">
+                <span class="section-tag">Why Choose Us</span>
+                <h2 class="section-title">Engineered For Peace of Mind</h2>
+                <p class="section-desc">We combine automotive passion with customer-first reliability.</p>
+            </div>
+
+            <div class="steps-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="step-card">
+                    <div class="step-card-icon"><i class="fa-solid fa-tags"></i></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.6rem;">Transparent Pricing</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">No hidden fees or unexpected surge charges. What you see during checkout is exactly what you pay.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-card-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.6rem;">100% Verified Fleet</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Every car undergoes a multi-point mechanical inspection and complete interior sanitization before handover.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-card-icon"><i class="fa-solid fa-headset"></i></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.6rem;">24/7 Roadside Concierge</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Travel with confidence. Dedicated emergency roadside support is just one phone tap away, day or night.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Testimonials -->
+        <section style="background: rgba(255, 255, 255, 0.02); border-top: 1px solid var(--border-color); padding: 6rem 0;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Testimonials</span>
+                    <h2 class="section-title">Trusted By Discerning Drivers</h2>
+                    <p class="section-desc">Read genuine experiences from executives, enthusiasts, and travelers.</p>
+                </div>
+
+                <div class="testimonials-grid" id="testimonials-grid">
+                    <!-- Injected by app.js from database.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 2: CARS CATALOG
+         ========================================================================== -->
+    <main id="cars-view" class="app-view catalog-page" style="display: none;">
+        <div class="container">
+            <div class="catalog-layout">
+                <!-- Filter Sidebar -->
+                <aside class="filter-sidebar">
+                    <div class="filter-header">
+                        <h3 style="font-size: 1.1rem;"><i class="fa-solid fa-sliders"></i> Filters</h3>
+                        <button class="btn btn-sm btn-secondary" onclick="app.resetFilters()">Reset</button>
+                    </div>
+
+                    <!-- Category Chips -->
+                    <div class="filter-group">
+                        <div class="filter-title">Vehicle Category</div>
+                        <div class="filter-chips">
+                            <span class="chip cat-chip active" data-cat="All">All</span>
+                            <span class="chip cat-chip" data-cat="SUV">SUV</span>
+                            <span class="chip cat-chip" data-cat="Sedan">Sedan</span>
+                            <span class="chip cat-chip" data-cat="Luxury">Luxury</span>
+                            <span class="chip cat-chip" data-cat="Electric">Electric</span>
+                            <span class="chip cat-chip" data-cat="Sports">Sports</span>
+                            <span class="chip cat-chip" data-cat="Economy">Economy</span>
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="filter-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="filter-title" style="margin-bottom: 0;">Max Price/Day</span>
+                            <span id="filter-price-val" style="font-weight: 700; color: var(--accent-cyan); font-size: 0.9rem;">₹30,000</span>
+                        </div>
+                        <input type="range" class="custom-range" id="filter-price-range" min="1500" max="30000" step="500" value="30000">
+                        <div class="range-labels">
+                            <span>₹1,500</span>
+                            <span>₹15,000</span>
+                            <span>₹30,000+</span>
+                        </div>
+                    </div>
+
+                    <!-- Fuel Type -->
+                    <div class="filter-group">
+                        <div class="filter-title">Fuel Type</div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="fuel" value="Petrol"> Petrol
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="fuel" value="Diesel"> Diesel
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="fuel" value="Electric"> Electric
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="fuel" value="Hybrid"> Hybrid
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Transmission -->
+                    <div class="filter-group">
+                        <div class="filter-title">Transmission</div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="trans" value="Automatic"> Automatic
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="trans" value="Manual"> Manual
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Seating Capacity -->
+                    <div class="filter-group">
+                        <div class="filter-title">Seating Capacity</div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="seats" value="4"> 4 Seats
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="seats" value="5"> 5 Seats
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" class="filter-checkbox" data-type="seats" value="7+"> 7+ Seats
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="filter-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600;">
+                            <input type="checkbox" class="filter-checkbox" data-type="avail" value="true"> Available Only
+                        </label>
+                    </div>
+                </aside>
+
+                <!-- Catalog Content Area -->
+                <main>
+                    <div class="catalog-toolbar">
+                        <div class="catalog-search-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="catalog-search-input" class="catalog-search-input" placeholder="Search by brand, model, or keywords...">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span id="catalog-results-count" style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">
+                                Loading fleet...
+                            </span>
+                            <select id="catalog-sort-select" class="form-control" style="width: auto; padding: 0.6rem 1rem;">
+                                <option value="popularity">Sort: Most Popular</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="newest">Newest Fleet</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="cars-grid" id="catalog-cars-grid">
+                        <!-- Car cards rendered here -->
+                    </div>
+                </main>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 3: CAR DETAILS
+         ========================================================================== -->
+    <main id="car-detail-view" class="app-view car-detail-section" style="display: none;">
+        <div class="container">
+            <button class="btn btn-secondary btn-sm" onclick="app.navigate('cars')" style="margin-bottom: 2rem;">
+                <i class="fa-solid fa-arrow-left"></i> Back to All Cars
+            </button>
+
+            <div class="car-detail-layout">
+                <!-- Left Details Content -->
+                <div>
+                    <div class="detail-gallery">
+                        <div class="gallery-main">
+                            <img id="detail-main-img" src="" alt="Vehicle Gallery View">
+                        </div>
+                        <div class="gallery-thumbs" id="detail-thumbs-wrap">
+                            <!-- Injected by app.js -->
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem;">
+                        <span class="car-category-badge" id="detail-category-badge" style="position: static;">SUV</span>
+                        <span style="color: var(--accent-amber); font-weight: 600; font-size: 0.95rem;">
+                            <i class="fa-solid fa-star"></i> <span id="detail-rating-txt">4.9 (48 reviews)</span>
+                        </span>
+                    </div>
+
+                    <h1 id="detail-title" style="font-size: 2.5rem; margin-bottom: 1rem;">BMW M4 Competition</h1>
+                    <p id="detail-desc" style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; margin-bottom: 2rem;">
+                        Vehicle overview and driving dynamics...
+                    </p>
+
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem;"><i class="fa-solid fa-gauge"></i> Performance Specifications</h3>
+                    <div class="spec-matrix-grid">
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-horse-head"></i>
+                            <div class="val" id="spec-power">503 hp</div>
+                            <div class="lbl">Max Power</div>
+                        </div>
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-stopwatch"></i>
+                            <div class="val" id="spec-accel">3.8s</div>
+                            <div class="lbl">0-100 km/h</div>
+                        </div>
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-tachometer-alt"></i>
+                            <div class="val" id="spec-speed">290 km/h</div>
+                            <div class="lbl">Top Speed</div>
+                        </div>
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-leaf"></i>
+                            <div class="val" id="spec-mileage">10.5 km/l</div>
+                            <div class="lbl">Mileage</div>
+                        </div>
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-gas-pump"></i>
+                            <div class="val" id="spec-fuel">Petrol</div>
+                            <div class="lbl">Fuel Type</div>
+                        </div>
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-gear"></i>
+                            <div class="val" id="spec-trans">Automatic</div>
+                            <div class="lbl">Transmission</div>
+                        </div>
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-users"></i>
+                            <div class="val" id="spec-seats">4 Seats</div>
+                            <div class="lbl">Seating</div>
+                        </div>
+                        <div class="spec-matrix-card">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div class="val">5-Star</div>
+                            <div class="lbl">Safety Rating</div>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 1.3rem; margin: 2rem 0 1rem;"><i class="fa-solid fa-list-check"></i> Standard Included Equipment</h3>
+                    <div class="features-list" id="detail-features-grid">
+                        <!-- Injected by app.js -->
+                    </div>
+
+                    <h3 style="font-size: 1.3rem; margin: 2rem 0 1rem;"><i class="fa-solid fa-file-contract"></i> Rental Guidelines & Policies</h3>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.95rem; color: var(--text-secondary);">
+                        <div><strong>Fuel Policy:</strong> <span id="detail-fuel-policy">Full to Full</span></div>
+                        <div><strong>Security Deposit:</strong> <span id="detail-deposit">₹10,000 (100% refundable upon vehicle return)</span></div>
+                        <div><strong>Driver Requirements:</strong> Minimum 21 years of age, valid Driver's License & Government Photo ID.</div>
+                        <div><strong>Cancellation:</strong> Free cancellation up to 24 hours prior to scheduled pick-up slot.</div>
+                    </div>
+                </div>
+
+                <!-- Right Sticky Quote & Instant Booking Widget -->
+                <aside>
+                    <div class="detail-booking-card">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem;">
+                            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Daily Rate</span>
+                            <div>
+                                <span id="detail-price-val" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; color: var(--text-primary);">₹18,500</span>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">/ day</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label">Rental Duration (Days)</label>
+                            <input type="number" id="detail-calc-days" class="form-control" min="1" max="30" value="3" oninput="app.updateDetailQuote()">
+                        </div>
+
+                        <div class="price-estimate-box">
+                            <div class="estimate-line">
+                                <span>Base Rental (<span id="detail-calc-daily">₹18,500</span> × <span id="detail-calc-days-lbl">3 Days</span>)</span>
+                                <span id="detail-calc-base">₹55,500</span>
+                            </div>
+                            <div class="estimate-line">
+                                <span>Comprehensive Insurance</span>
+                                <span id="detail-calc-insurance">₹1,500</span>
+                            </div>
+                            <div class="estimate-line">
+                                <span>Applicable Taxes (18% GST)</span>
+                                <span id="detail-calc-taxes">₹10,260</span>
+                            </div>
+                            <div class="estimate-line total">
+                                <span>Estimated Total</span>
+                                <span id="detail-calc-total" style="color: var(--accent-cyan);">₹67,260</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg" style="width: 100%; margin-top: 1rem;" onclick="app.startBookingForCar(app.selectedCar.id)">
+                            <i class="fa-solid fa-key"></i> Book This Car
+                        </button>
+                        <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.8rem;">
+                            Instant confirmation • Zero hidden charges
+                        </p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 4: 5-STEP BOOKING FLOW
+         ========================================================================== -->
+    <main id="booking-view" class="app-view booking-section" style="display: none;">
+        <div class="container">
+            <!-- Stepper Progress Bar -->
+            <div class="stepper-bar">
+                <div class="step-item active" id="wizard-step-item-1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Vehicle</span>
+                </div>
+                <div class="step-item" id="wizard-step-item-2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Dates & Hub</span>
+                </div>
+                <div class="step-item" id="wizard-step-item-3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Your Info</span>
+                </div>
+                <div class="step-item" id="wizard-step-item-4">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Confirmation</span>
+                </div>
+            </div>
+
+            <div class="booking-wizard-layout">
+                <!-- Main Wizard Forms Container -->
+                <div class="wizard-card">
+                    <!-- STEP 1: VEHICLE CONFIRMATION -->
+                    <div id="booking-step-content-1">
+                        <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Step 1: Confirm Selected Vehicle</h2>
+                        <div style="display: flex; gap: 1.5rem; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 2rem;">
+                            <img id="booking-car-thumb" src="" alt="Selected Car" style="width: 140px; height: 95px; object-fit: cover; border-radius: var(--radius-md);">
+                            <div>
+                                <h3 id="booking-car-title" style="font-size: 1.3rem;">Vehicle Title</h3>
+                                <p id="booking-car-sub" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">Specs line</p>
+                                <div id="booking-car-rate" style="font-weight: 800; color: var(--accent-cyan); font-size: 1.1rem;">₹0 / day</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                            <button class="btn btn-secondary" onclick="app.navigate('cars')">Change Vehicle</button>
+                            <button class="btn btn-primary" onclick="app.nextBookingStep(1)">Proceed to Dates <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: DATES & LOCATION -->
+                    <div id="booking-step-content-2" style="display: none;">
+                        <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Step 2: Select Rental Schedule & Locations</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group">
+                                <label class="form-label"><i class="fa-solid fa-location-dot"></i> Pick-up Location</label>
+                                <select class="form-control" id="booking-pickup-loc" required>
+                                    <!-- Populated from database.js -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label"><i class="fa-solid fa-location-arrow"></i> Drop-off Location</label>
+                                <select class="form-control" id="booking-dropoff-loc">
+                                    <!-- Populated from database.js -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label"><i class="fa-regular fa-calendar"></i> Pick-up Date</label>
+                                <input type="date" class="form-control" id="booking-step2-pickup" onchange="app.calculateBookingTotal()" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label"><i class="fa-regular fa-calendar-check"></i> Return Date</label>
+                                <input type="date" class="form-control" id="booking-step2-return" onchange="app.calculateBookingTotal()" required>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <button class="btn btn-secondary" onclick="app.prevBookingStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button class="btn btn-primary" onclick="app.nextBookingStep(2)">Proceed to Your Details <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: CUSTOMER INFORMATION -->
+                    <div id="booking-step-content-3" style="display: none;">
+                        <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Step 3: Customer Information</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="booking-step3-name" placeholder="e.g. Rahul Sharma" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" id="booking-step3-email" placeholder="e.g. rahul@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-control" id="booking-step3-phone" placeholder="e.g. +91 98765 43210" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Driving License Number</label>
+                                <input type="text" class="form-control" id="booking-step3-dl" placeholder="e.g. MH01-2021004598">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label class="form-label">Special Delivery Requests / Flight Details</label>
+                                <textarea class="form-control" id="booking-step3-notes" rows="2" placeholder="e.g. Flight 6E-241 arriving at 10 AM. Request child safety seat."></textarea>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <button class="btn btn-secondary" onclick="app.prevBookingStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button class="btn btn-primary" onclick="app.nextBookingStep(3)">Review & Confirm <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: REVIEW & CONFIRM -->
+                    <div id="booking-step-content-4" style="display: none;">
+                        <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Step 4: Review Booking Summary</h2>
+                        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                                <tr>
+                                    <td style="padding: 0.5rem 0; color: var(--text-muted);">Selected Vehicle:</td>
+                                    <td style="padding: 0.5rem 0; text-align: right; font-weight: 700;" id="step4-car-title">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem 0; color: var(--text-muted);">Rental Schedule:</td>
+                                    <td style="padding: 0.5rem 0; text-align: right;" id="step4-dates">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem 0; color: var(--text-muted);">Pick-up Location:</td>
+                                    <td style="padding: 0.5rem 0; text-align: right;" id="step4-pickup">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem 0; color: var(--text-muted);">Drop-off Location:</td>
+                                    <td style="padding: 0.5rem 0; text-align: right;" id="step4-dropoff">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem 0; color: var(--text-muted);">Customer:</td>
+                                    <td style="padding: 0.5rem 0; text-align: right;" id="step4-name">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem 0; color: var(--text-muted);">Contact:</td>
+                                    <td style="padding: 0.5rem 0; text-align: right;" id="step4-contact">-</td>
+                                </tr>
+                                <tr style="border-top: 1px solid var(--border-color);">
+                                    <td style="padding: 0.8rem 0; font-weight: 800; font-size: 1.15rem;">Total Payable:</td>
+                                    <td style="padding: 0.8rem 0; text-align: right; font-weight: 900; font-size: 1.3rem; color: var(--accent-cyan);" id="step4-total">-</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <button class="btn btn-secondary" onclick="app.prevBookingStep(4)"><i class="fa-solid fa-arrow-left"></i> Edit Details</button>
+                            <button class="btn btn-primary btn-lg" id="btn-confirm-final-booking" onclick="app.confirmFinalBooking()">
+                                <i class="fa-solid fa-check"></i> Confirm Reservation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Live Price Summary -->
+                <aside class="detail-booking-card" style="margin-top: 0;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1.2rem;"><i class="fa-solid fa-receipt"></i> Booking Estimate</h3>
+                    <div style="font-weight: 700; font-size: 1.1rem;" id="summary-car-name">Select a Car</div>
+                    
+                    <div class="price-estimate-box">
+                        <div class="estimate-line">
+                            <span id="summary-rate-line">Base Rental</span>
+                            <span id="summary-base-val">₹0</span>
+                        </div>
+                        <div class="estimate-line">
+                            <span>Zero-Deductible Cover</span>
+                            <span id="summary-insurance-val">₹0</span>
+                        </div>
+                        <div class="estimate-line">
+                            <span>GST & Terminal Surcharges (18%)</span>
+                            <span id="summary-taxes-val">₹0</span>
+                        </div>
+                        <div class="estimate-line total">
+                            <span>Final Total</span>
+                            <span id="summary-total-val" style="color: var(--accent-cyan);">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Promo code input -->
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <input type="text" id="booking-promo-code" class="form-control" placeholder="Promo code (RENTORA10)" style="font-size: 0.85rem; text-transform: uppercase;">
+                        <button class="btn btn-secondary btn-sm" onclick="app.applyPromoCode()">Apply</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 5: BOOKING CONFIRMATION & RECEIPT
+         ========================================================================== -->
+    <main id="confirmation-view" class="app-view" style="display: none;">
+        <div class="container">
+            <div class="confirmation-card">
+                <div class="success-icon-badge">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h1 style="font-size: 2.4rem; margin-bottom: 0.5rem;">Booking Confirmed!</h1>
+                <p style="color: var(--text-secondary);">Your reservation voucher has been generated and vehicle dispatched for prep.</p>
+
+                <div class="booking-id-tag">
+                    Booking ID: <span id="receipt-booking-id">REN-2026-00125</span>
+                </div>
+
+                <table class="receipt-table">
+                    <tr>
+                        <td>Customer Name</td>
+                        <td id="receipt-customer-name">Rahul Sharma</td>
+                    </tr>
+                    <tr>
+                        <td>Reserved Vehicle</td>
+                        <td id="receipt-vehicle">Mercedes-Benz C-Class C300 Luxury</td>
+                    </tr>
+                    <tr>
+                        <td>Pick-up Location</td>
+                        <td id="receipt-pickup-loc">Mumbai Airport Terminal 2</td>
+                    </tr>
+                    <tr>
+                        <td>Drop-off Location</td>
+                        <td id="receipt-dropoff-loc">Mumbai Airport Terminal 2</td>
+                    </tr>
+                    <tr>
+                        <td>Pick-up Date & Time</td>
+                        <td id="receipt-pickup-date">2026-09-15 (10:00 AM)</td>
+                    </tr>
+                    <tr>
+                        <td>Return Date & Time</td>
+                        <td id="receipt-return-date">2026-09-18 (06:00 PM)</td>
+                    </tr>
+                    <tr>
+                        <td>Rental Duration</td>
+                        <td id="receipt-duration">3 Days</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td><span class="status-badge confirmed" id="receipt-status"><span class="status-dot"></span> Confirmed</span></td>
+                    </tr>
+                    <tr style="border-top: 2px solid var(--border-color);">
+                        <td style="font-size: 1.1rem; font-weight: 800;">Total Amount Paid</td>
+                        <td id="receipt-amount" style="font-size: 1.3rem; color: var(--accent-cyan);">₹35,130</td>
+                    </tr>
+                </table>
+
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i class="fa-solid fa-print"></i> Print / Download Receipt
+                    </button>
+                    <button class="btn btn-primary" onclick="app.navigate('my-bookings')">
+                        <i class="fa-solid fa-list-check"></i> View My Bookings
+                    </button>
+                    <button class="btn btn-secondary" onclick="app.navigate('home')">
+                        <i class="fa-solid fa-house"></i> Back to Home
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 6: MY BOOKINGS
+         ========================================================================== -->
+    <main id="my-bookings-view" class="app-view bookings-page" style="display: none;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem;">My Bookings</h1>
+                    <p style="color: var(--text-secondary);">Manage and track your active, upcoming, and completed rentals.</p>
+                </div>
+                <div class="admin-nav-tabs" style="margin-bottom: 0;">
+                    <button class="admin-tab-btn active" onclick="app.renderMyBookings('All')">All</button>
+                    <button class="admin-tab-btn" onclick="app.renderMyBookings('Confirmed')">Confirmed</button>
+                    <button class="admin-tab-btn" onclick="app.renderMyBookings('Pending')">Pending</button>
+                    <button class="admin-tab-btn" onclick="app.renderMyBookings('Completed')">Completed</button>
+                    <button class="admin-tab-btn" onclick="app.renderMyBookings('Cancelled')">Cancelled</button>
+                </div>
+            </div>
+
+            <div id="my-bookings-list">
+                <!-- Injected by app.js -->
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 7: ABOUT PAGE
+         ========================================================================== -->
+    <main id="about-view" class="app-view" style="display: none; padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">About Rentora</span>
+                <h1 class="section-title">Elevating Personal Mobility Across India</h1>
+                <p class="section-desc">Rentora was founded to banish the friction of car rentals with modern engineering and high-touch customer care.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin: 4rem 0;">
+                <div>
+                    <h2 style="font-size: 2rem; margin-bottom: 1.2rem;">Built For The Modern Traveler</h2>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.2rem;">
+                        Whether it’s a high-stakes executive conference in Mumbai BKC, an adventurous monsoon drive to Goa in a rugged 4x4, or an exhilarating weekend sports car experience, Rentora guarantees impeccable vehicle condition, spotless interiors, and transparent pricing.
+                    </p>
+                    <p style="color: var(--text-secondary); line-height: 1.8;">
+                        Our digital-first platform puts transparency at the core. With zero hidden fees, live vehicle tracking, doorstep dispatch, and 24/7 emergency roadside assistance, you travel with absolute confidence.
+                    </p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80" alt="About Rentora" style="border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 8: CONTACT PAGE
+         ========================================================================== -->
+    <main id="contact-view" class="app-view" style="display: none; padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Get in Touch</span>
+                <h1 class="section-title">We’re Here Whenever You Need Us</h1>
+                <p class="section-desc">Our dedicated 24/7 mobility concierge is standing by to assist your rental inquiries.</p>
+            </div>
+
+            <div class="contact-layout">
+                <!-- Contact Form -->
+                <div class="wizard-card">
+                    <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem;">Send a Message</h3>
+                    <form id="contact-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="+91 98000 00000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-control" required placeholder="Booking Assistance / Corporate Inquiry">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" rows="4" required placeholder="How can our concierge team assist you?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 0.5rem;">
+                            <i class="fa-regular fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Details -->
+                <div>
+                    <div class="wizard-card" style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.3rem; margin-bottom: 1.2rem;">Support Hotlines</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div class="btn-icon" style="color: var(--accent-cyan);"><i class="fa-solid fa-phone"></i></div>
+                                <div>
+                                    <div style="font-weight: 700;">24/7 Helpline</div>
+                                    <div style="color: var(--text-secondary);">+91 1800 209 8899</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div class="btn-icon" style="color: var(--accent-blue);"><i class="fa-solid fa-envelope"></i></div>
+                                <div>
+                                    <div style="font-weight: 700;">Concierge Email</div>
+                                    <div style="color: var(--text-secondary);">concierge@rentora.com</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div class="btn-icon" style="color: var(--accent-emerald);"><i class="fa-solid fa-building"></i></div>
+                                <div>
+                                    <div style="font-weight: 700;">Corporate Headquarters</div>
+                                    <div style="color: var(--text-secondary);">One World Center, Tower 2, Lower Parel, Mumbai 400013</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wizard-card">
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.8rem;">Major Airport Hubs</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                            Our VIP handover bays operate 24/7 across Mumbai CSMIA (T2), Bangalore BLR, Delhi IGI (T3), Hyderabad RGIA, and Goa Dabolim.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW 9: ADMIN DASHBOARD
+         ========================================================================== -->
+    <main id="admin-view" class="app-view admin-page" style="display: none;">
+        <div class="container">
+            <div class="admin-header">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.6rem;">
+                        <span class="status-badge confirmed"><i class="fa-solid fa-shield"></i> Master Control</span>
+                        <h1 style="font-size: 2.2rem;">Rentora Fleet Operations</h1>
+                    </div>
+                    <p style="color: var(--text-secondary);">Live vehicle availability, customer reservation control, and performance metrics.</p>
+                </div>
+                <div>
+                    <button class="btn btn-primary" onclick="adminApp.openAddCarModal()">
+                        <i class="fa-solid fa-plus"></i> Add Vehicle to Fleet
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Nav Tabs -->
+            <div class="admin-nav-tabs">
+                <button class="admin-tab-btn active" data-tab="overview"><i class="fa-solid fa-chart-pie"></i> Overview</button>
+                <button class="admin-tab-btn" data-tab="fleet"><i class="fa-solid fa-car"></i> Fleet Management</button>
+                <button class="admin-tab-btn" data-tab="bookings"><i class="fa-solid fa-calendar-check"></i> Bookings Management</button>
+                <button class="admin-tab-btn" data-tab="customers"><i class="fa-solid fa-users"></i> Customers Directory</button>
+            </div>
+
+            <!-- TAB 1: OVERVIEW & CHARTS -->
+            <div id="admin-tab-overview" class="admin-tab-content">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap" style="background: rgba(37, 99, 235, 0.15); color: var(--accent-blue);"><i class="fa-solid fa-car"></i></div>
+                        <div class="kpi-val" id="kpi-total-cars">0</div>
+                        <div class="kpi-lbl">Total Fleet Vehicles</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="kpi-val" id="kpi-available-cars">0</div>
+                        <div class="kpi-lbl">Available For Rent</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap" style="background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan);"><i class="fa-solid fa-calendar"></i></div>
+                        <div class="kpi-val" id="kpi-total-bookings">0</div>
+                        <div class="kpi-lbl">Total Reservations</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap" style="background: rgba(139, 92, 246, 0.15); color: #8B5CF6;"><i class="fa-solid fa-key"></i></div>
+                        <div class="kpi-val" id="kpi-active-rentals">0</div>
+                        <div class="kpi-lbl">Active On-Road Rentals</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-amber);"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        <div class="kpi-val" id="kpi-revenue" style="color: var(--accent-emerald);">₹0</div>
+                        <div class="kpi-lbl">Gross Revenue</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap" style="background: rgba(244, 63, 94, 0.15); color: var(--accent-rose);"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div class="kpi-val" id="kpi-pending-bookings">0</div>
+                        <div class="kpi-lbl">Pending Approvals</div>
+                    </div>
+                </div>
+
+                <!-- Charts Grid -->
+                <div class="admin-charts-grid">
+                    <div class="chart-card">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 1.2rem;"><i class="fa-solid fa-chart-column"></i> Monthly Revenue Performance (₹)</h3>
+                        <canvas id="revenue-chart-canvas" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 1.2rem;"><i class="fa-solid fa-pie-chart"></i> Fleet Category Distribution</h3>
+                        <canvas id="category-chart-canvas" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: FLEET MANAGEMENT -->
+            <div id="admin-tab-fleet" class="admin-tab-content" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem;">
+                    <input type="text" id="admin-fleet-search" class="form-control" placeholder="Search fleet by model, brand, category..." style="max-width: 350px;">
+                    <button class="btn btn-primary btn-sm" onclick="adminApp.openAddCarModal()">
+                        <i class="fa-solid fa-plus"></i> Add Vehicle
+                    </button>
+                </div>
+                <div class="admin-table-card">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Details</th>
+                                    <th>Category</th>
+                                    <th>Daily Rate</th>
+                                    <th>Specifications</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-fleet-tbody">
+                                <!-- Populated by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: BOOKINGS MANAGEMENT -->
+            <div id="admin-tab-bookings" class="admin-tab-content" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+                    <input type="text" id="admin-booking-search" class="form-control" placeholder="Search by Booking ID, Customer name, Vehicle..." style="max-width: 350px;">
+                    <select id="admin-booking-status-filter" class="form-control" style="width: auto;">
+                        <option value="All">All Statuses</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="admin-table-card">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Customer</th>
+                                    <th>Vehicle & Hub</th>
+                                    <th>Dates</th>
+                                    <th>Total Amount</th>
+                                    <th>Change Status</th>
+                                    <th>Voucher</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-bookings-tbody">
+                                <!-- Populated by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CUSTOMERS DIRECTORY -->
+            <div id="admin-tab-customers" class="admin-tab-content" style="display: none;">
+                <div class="admin-table-card">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Phone</th>
+                                    <th>Rentals Count</th>
+                                    <th>Lifetime Spend</th>
+                                    <th>Current Reservation</th>
+                                    <th>Account Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-customers-tbody">
+                                <!-- Populated by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         MODAL: AUTHENTICATION (Login / Sign Up)
+         ========================================================================== -->
+    <div class="modal-backdrop" id="auth-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="app.closeModal('auth-modal')">&times;</button>
+            <div style="text-align: center; margin-bottom: 1.8rem;">
+                <img src="rentora-logo.jpg" alt="Rentora"
+                     onerror="this.onerror=null; this.src='C:/Users/sai/.gemini/antigravity/brain/f9c26ff1-5a1f-4b36-81c9-052bf39e70ea/.user_uploaded/media_1789139689003.jpg';"
+                     style="height: 60px; width: auto; object-fit: contain; margin: 0 auto 0.6rem; display: block;">
+                <h2 style="font-size: 1.6rem;">Welcome to Rentora</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Access your reservations, invoices, and fleet preferences</p>
+            </div>
+
+            <!-- Quick Demo Credentials Banner -->
+            <div style="background: rgba(37, 99, 235, 0.08); border: 1px dashed var(--accent-blue); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.5rem; text-align: center;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.4rem;">QUICK DEMO ONE-CLICK AUTOFILL:</div>
+                <div style="display: flex; gap: 0.6rem; justify-content: center;">
+                    <button class="btn btn-secondary btn-sm" onclick="app.fillDemoCredentials('customer')">
+                        <i class="fa-solid fa-user"></i> Customer Demo
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="app.fillDemoCredentials('admin')">
+                        <i class="fa-solid fa-shield"></i> Admin Demo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Auth Tabs -->
+            <div style="display: flex; gap: 0.5rem; background: rgba(255, 255, 255, 0.05); padding: 0.3rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+                <button type="button" id="tab-btn-signin" class="btn btn-sm btn-primary" style="flex: 1;" onclick="app.showAuthTab('signin')">Sign In</button>
+                <button type="button" id="tab-btn-signup" class="btn btn-sm btn-secondary" style="flex: 1;" onclick="app.showAuthTab('signup')">Create Account</button>
+            </div>
+
+            <!-- Login Form Container -->
+            <div id="login-form-wrap">
+                <form id="login-form" onsubmit="app.handleLogin(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary);">
+                        <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                            <input type="checkbox" checked> Remember me
+                        </label>
+                        <a href="javascript:void(0)" onclick="app.showAuthTab('reset')" style="color: var(--accent-blue); font-weight: 600;">Forgot / Set Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 0.5rem;">
+                        Sign In
+                    </button>
+                </form>
+
+                <div style="text-align: center; margin: 1.2rem 0; color: var(--text-muted); font-size: 0.85rem;">
+                    Or continue with
+                </div>
+
+                <button class="btn btn-secondary" style="width: 100%;" onclick="app.showToast('Google OAuth simulated: You can sign in or create an account with any email!', 'info')">
+                    <i class="fa-brands fa-google"></i> Continue with Google
+                </button>
+            </div>
+
+            <!-- Signup Form Container (New User Registration) -->
+            <div id="signup-form-wrap" style="display: none;">
+                <form id="signup-form" onsubmit="app.handleSignup(event)" style="display: flex; flex-direction: column; gap: 0.9rem;">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" id="signup-name" class="form-control" placeholder="e.g. Ananya Roy" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" id="signup-phone" class="form-control" placeholder="+91 98765 43210" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Set Password * (minimum 6 characters)</label>
+                        <input type="password" id="signup-password" class="form-control" placeholder="••••••••" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password *</label>
+                        <input type="password" id="signup-confirm" class="form-control" placeholder="••••••••" minlength="6" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 0.5rem;">
+                        <i class="fa-solid fa-user-plus"></i> Create Account & Sign In
+                    </button>
+                    <div style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.4rem;">
+                        Already have an account? <a href="javascript:void(0)" onclick="app.showAuthTab('signin')" style="color: var(--accent-blue); font-weight: 600;">Sign In</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Reset / Set New Password Form Container -->
+            <div id="reset-form-wrap" style="display: none;">
+                <div style="background: rgba(37, 99, 235, 0.08); border: 1px solid var(--border-highlight); border-radius: var(--radius-md); padding: 0.8rem; margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--text-secondary);">
+                    Enter your registered account email and set a new password to instantly regain access.
+                </div>
+                <form id="reset-password-form" onsubmit="app.handleResetPassword(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Registered Account Email *</label>
+                        <input type="email" id="reset-email" class="form-control" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">New Password * (minimum 6 characters)</label>
+                        <input type="password" id="reset-new-password" class="form-control" placeholder="••••••••" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password *</label>
+                        <input type="password" id="reset-confirm-password" class="form-control" placeholder="••••••••" minlength="6" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 0.5rem;">
+                        <i class="fa-solid fa-key"></i> Set New Password
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="app.showAuthTab('signin')">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: USER SETTINGS & PASSWORD MANAGEMENT
+         ========================================================================== -->
+    <div class="modal-backdrop" id="settings-modal">
+        <div class="modal-content" style="max-width: 560px;">
+            <button class="modal-close-btn" onclick="app.closeModal('settings-modal')">&times;</button>
+            <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;">
+                <div class="brand-icon" style="width: 42px; height: 42px; font-size: 1.2rem;">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <div>
+                    <h2 style="font-size: 1.4rem;">Account Settings & Security</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Manage your personal profile, contact info, and password settings</p>
+                </div>
+            </div>
+
+            <!-- Settings Tabs -->
+            <div style="display: flex; gap: 0.5rem; background: rgba(255, 255, 255, 0.05); padding: 0.3rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+                <button type="button" id="settings-tab-profile-btn" class="btn btn-sm btn-primary" style="flex: 1;" onclick="app.switchSettingsTab('profile')">Profile Details</button>
+                <button type="button" id="settings-tab-password-btn" class="btn btn-sm btn-secondary" style="flex: 1;" onclick="app.switchSettingsTab('password')">Set / Change Password</button>
+            </div>
+
+            <!-- Profile Settings Form -->
+            <div id="settings-tab-profile">
+                <form id="profile-settings-form" onsubmit="app.handleProfileUpdate(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" id="settings-profile-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="settings-profile-email" class="form-control" disabled style="opacity: 0.7; cursor: not-allowed;">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Email address is permanent and used for booking receipts.</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" id="settings-profile-phone" class="form-control" placeholder="+91 98765 43210" required>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 0.5rem;">
+                        <button type="button" class="btn btn-secondary" onclick="app.closeModal('settings-modal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Password Settings Form -->
+            <div id="settings-tab-password" style="display: none;">
+                <form id="password-settings-form" onsubmit="app.handlePasswordChange(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Current Password *</label>
+                        <input type="password" id="settings-curr-pass" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">New Password * (minimum 6 characters)</label>
+                        <input type="password" id="settings-new-pass" class="form-control" placeholder="••••••••" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password *</label>
+                        <input type="password" id="settings-confirm-pass" class="form-control" placeholder="••••••••" minlength="6" required>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 0.5rem;">
+                        <button type="button" class="btn btn-secondary" onclick="app.closeModal('settings-modal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-lock"></i> Update Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: ADD / EDIT CAR (ADMIN)
+         ========================================================================== -->
+    <div class="modal-backdrop" id="car-modal">
+        <div class="modal-content" style="max-width: 680px;">
+            <button class="modal-close-btn" onclick="app.closeModal('car-modal')">&times;</button>
+            <h2 id="car-modal-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Add New Fleet Vehicle</h2>
+            
+            <form id="car-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
+                <input type="hidden" id="car-modal-id">
+                
+                <div class="form-group">
+                    <label class="form-label">Brand *</label>
+                    <input type="text" id="car-brand" class="form-control" placeholder="e.g. BMW" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Model *</label>
+                    <input type="text" id="car-model-name" class="form-control" placeholder="e.g. M4 Competition" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Year</label>
+                    <input type="number" id="car-year" class="form-control" value="2024" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="car-category" class="form-control">
+                        <option value="SUV">SUV</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Luxury">Luxury</option>
+                        <option value="Electric">Electric</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Economy">Economy</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Price Per Day (₹) *</label>
+                    <input type="number" id="car-price" class="form-control" value="5000" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fuel Type</label>
+                    <select id="car-fuel" class="form-control">
+                        <option value="Petrol">Petrol</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Electric">Electric</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Transmission</label>
+                    <select id="car-transmission" class="form-control">
+                        <option value="Automatic">Automatic</option>
+                        <option value="Manual">Manual</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Seating Capacity</label>
+                    <input type="number" id="car-seats" class="form-control" value="5" min="2" max="9" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mileage / Range</label>
+                    <input type="text" id="car-mileage" class="form-control" placeholder="e.g. 16 km/l">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Image URL</label>
+                    <input type="url" id="car-image" class="form-control" placeholder="https://images.unsplash.com/...">
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label class="form-label">Description</label>
+                    <textarea id="car-description" class="form-control" rows="2" placeholder="Vehicle features and overview"></textarea>
+                </div>
+                <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
+                    <button type="button" class="btn btn-secondary" onclick="app.closeModal('car-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Vehicle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: RECEIPT VOUCHER
+         ========================================================================== -->
+    <div class="modal-backdrop" id="receipt-modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close-btn" onclick="app.closeModal('receipt-modal')">&times;</button>
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <img src="rentora-logo.jpg" alt="Rentora"
+                     onerror="this.onerror=null; this.src='C:/Users/sai/.gemini/antigravity/brain/f9c26ff1-5a1f-4b36-81c9-052bf39e70ea/.user_uploaded/media_1789139689003.jpg';"
+                     style="height: 56px; width: auto; object-fit: contain; margin: 0 auto 0.6rem; display: block;">
+                <h3 style="font-size: 1.4rem;">Official Reservation Voucher</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Present this document at the pickup hub along with your driving license.</p>
+            </div>
+            
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.2rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.6rem;">
+                    <span style="color: var(--text-muted); font-size: 0.85rem;">Voucher Number</span>
+                    <span style="font-family: monospace; font-weight: 700; color: var(--accent-cyan);">REN-2026-CONFIRMED</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.6rem;">
+                    <span style="color: var(--text-muted); font-size: 0.85rem;">Assistance Line</span>
+                    <span style="font-weight: 600;">+91 1800 209 8899</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--text-muted); font-size: 0.85rem;">Handover Condition</span>
+                    <span style="color: var(--accent-emerald); font-weight: 600;">Sanitized & Fuel Verified</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;" onclick="window.print()">
+                <i class="fa-solid fa-print"></i> Print Voucher
+            </button>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         TOAST CONTAINER
+         ========================================================================== -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ==========================================================================
+         GLOBAL FOOTER
+         ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="brand-logo" style="margin-bottom: 1.2rem;">
+                        <img src="rentora-logo.jpg" alt="Rentora"
+                             onerror="this.onerror=null; this.src='C:/Users/sai/.gemini/antigravity/brain/f9c26ff1-5a1f-4b36-81c9-052bf39e70ea/.user_uploaded/media_1789139689003.jpg';"
+                             style="height: 48px; width: auto; object-fit: contain;">
+                    </div>
+                    <p style="color: #94A3B8; font-size: 0.9rem; line-height: 1.7; max-width: 320px; margin-bottom: 1.5rem;">
+                        Rentora is India’s premier digital car rental platform delivering verified, pristine vehicles with transparent pricing and zero paperwork delays.
+                    </p>
+                    <div style="display: flex; gap: 0.8rem;">
+                        <a href="javascript:void(0)" class="btn-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="javascript:void(0)" class="btn-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="javascript:void(0)" class="btn-icon" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="javascript:void(0)" class="btn-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-col-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Rentora</a></li>
+                        <li><a href="#about">Careers</a></li>
+                        <li><a href="#contact">Press & Media</a></li>
+                        <li><a href="#contact">Sustainability</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-col-title">Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#cars">Self-Drive Car Rental</a></li>
+                        <li><a href="#cars">Airport Concierge Pickup</a></li>
+                        <li><a href="#cars">Monthly Corporate Subscriptions</a></li>
+                        <li><a href="#cars">Luxury Wedding Escorts</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-col-title">Support & Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">24/7 Help Center</a></li>
+                        <li><a href="#about">Rental Guidelines</a></li>
+                        <li><a href="#about">Terms & Conditions</a></li>
+                        <li><a href="#about">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Rentora Technologies Inc. All rights reserved.</div>
+                <div>Designed with automotive precision for modern mobility.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/database.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/app.js"></script>
+    <!-- Logo Asset Loader: tries relative path, falls back to absolute upload path -->
+    <script>
+    (function() {
+        var LOGO_SOURCES = [
+            'rentora-logo.jpg',
+            'C:/Users/sai/.gemini/antigravity/brain/f9c26ff1-5a1f-4b36-81c9-052bf39e70ea/.user_uploaded/media_1789139689003.jpg'
+        ];
+        function setLogoSrc(img, srcIndex) {
+            if (!img || srcIndex >= LOGO_SOURCES.length) return;
+            img.onerror = function() { setLogoSrc(img, srcIndex + 1); };
+            img.src = LOGO_SOURCES[srcIndex];
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('img[src="rentora-logo.jpg"]').forEach(function(img) {
+                img.onerror = function() {
+                    setLogoSrc(img, 1);
+                };
+            });
+        });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "rentora-backend",
+  "version": "1.0.0",
+  "description": "Production-Ready REST API Server for Rentora Car Rental Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "car-rental",
+    "express",
+    "rentora",
+    "rest-api"
+  ],
+  "author": "Rentora Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
